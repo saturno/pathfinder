@@ -2,28 +2,41 @@ package br.com.elo7;
 
 public class Sonda {
 
-	public Sonda(Planalto planalto, Posicao posicao) {
-		// TODO Auto-generated constructor stub
+	private PosicaoVetorial posicao;
+
+	private final Planalto planalto;
+
+	public Sonda(Planalto planalto, PosicaoVetorial posicao) throws LimitePlanaltoException {
+		super();
+		this.planalto = planalto;
+		this.posicao = posicao;
+		planalto.addSonda(this);
 	}
 
-	public Posicao getPosicao() {
-		// TODO Auto-generated method stub
-		return null;
+	public PosicaoVetorial getPosicao() {
+		return this.posicao;
 	}
 
 	public void viraDireita() {
-		// TODO Auto-generated method stub
-
+		this.getPosicao().setDirecao(this.getPosicao().getDirecao().direita());
 	}
 
 	public void viraEsquerda() {
-		// TODO Auto-generated method stub
-
+		this.getPosicao().setDirecao(this.getPosicao().getDirecao().esquerda());
 	}
 
-	public void anda() {
-		// TODO Auto-generated method stub
+	public void anda() throws LimitePlanaltoException {
+		Coordenada novaCoordenada = new Coordenada(this.getPosicao()
+				.getCoordenada().getX()
+				+ this.getPosicao().getDirecao().getAndaX(), this.getPosicao()
+				.getCoordenada().getY()
+				+ this.getPosicao().getDirecao().getAndaY());
 
+		if (!planalto.validaCoordenada(novaCoordenada)) {
+			throw new LimitePlanaltoException();
+		}
+
+		this.getPosicao().setCoordenada(novaCoordenada);
 	}
 
 }

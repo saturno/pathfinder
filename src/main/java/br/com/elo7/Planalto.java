@@ -7,21 +7,32 @@ public class Planalto {
 
 	private List<Sonda> sondas = new ArrayList<Sonda>();
 
-	private int largura;
+	private final Coordenada coordenadaSuperiorDireita;
 
-	private int comprimento;
-
-	public Planalto(int comprimento, int largura) {
-		this.comprimento = comprimento;
-		this.largura = largura;
+	public Planalto(Coordenada coordenadaSuperiorDireita) {
+		super();
+		this.coordenadaSuperiorDireita = coordenadaSuperiorDireita;
 	}
 
-	public void addSonda(Sonda sonda) {
-		// TODO valida posição no planalto e colisões com outras sondas
+	public void addSonda(Sonda sonda) throws LimitePlanaltoException {
+		// TODO valida colisões com outras sondas
+		if (!validaCoordenada(sonda.getPosicao().getCoordenada())) {
+			throw new LimitePlanaltoException();
+		}
 		this.sondas.add(sonda);
 	}
 
 	public List<Sonda> getSondas() {
 		return this.sondas;
+	}
+
+	public Coordenada getCoordenadaSuperiorDireita() {
+		return coordenadaSuperiorDireita;
+	}
+
+	public boolean validaCoordenada(Coordenada coordenada) {
+		return coordenada.getX() >= 0 && coordenada.getY() >= 0
+				&& coordenada.getX() < getCoordenadaSuperiorDireita().getX()
+				&& coordenada.getY() < getCoordenadaSuperiorDireita().getY();
 	}
 }

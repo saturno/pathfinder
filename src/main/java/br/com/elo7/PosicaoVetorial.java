@@ -55,4 +55,9 @@ public class PosicaoVetorial {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return coordenada.toString() + " " + direcao.getToken();
+	}
+
 }

@@ -1,12 +1,14 @@
 package br.com.elo7;
 
 public enum DirecoesEnum {
-	NORTE(0, 1), SUL(0, -1), LESTE(1, 0), OESTE(-1, 0);
+	NORTE("N", 0, 1), SUL("S", 0, -1), LESTE("E", 1, 0), OESTE("W", -1, 0);
 
 	private final int andaY;
 	private final int andaX;
+	private final String token;
 
-	private DirecoesEnum(int andaX, int andaY) {
+	private DirecoesEnum(String token, int andaX, int andaY) {
+		this.token = token;
 		this.andaX = andaX;
 		this.andaY = andaY;
 	}
@@ -54,12 +56,31 @@ public enum DirecoesEnum {
 		return esquerda;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
 	public int getAndaY() {
 		return andaY;
 	}
 
 	public int getAndaX() {
 		return andaX;
+	}
+
+	public static DirecoesEnum traduz(String direcaoString)
+			throws DirecaoException {
+		if (direcaoString == null || direcaoString.isEmpty()) {
+			throw new DirecaoException("Não é permitida a direção vazia!");
+		}
+
+		for (DirecoesEnum direcao : values()) {
+			if (direcao.getToken().equalsIgnoreCase(direcaoString)) {
+				return direcao;
+			}
+		}
+
+		throw new DirecaoException("Direção " + direcaoString + " Inválida!");
 	}
 
 }

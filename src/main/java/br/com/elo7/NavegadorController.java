@@ -22,13 +22,8 @@ public class NavegadorController {
 	private INavegadorService navegadorService;
 
 	@RequestMapping(value = "/navegacao", method = POST, headers = { "content-type=application/json" })
-	public List<SondaVO> navega(@RequestBody InstrucoesVO instrucoes) {
-		try {
-			return SondaVO.adapta(navegadorService.navega(instrucoes));
-		} catch (LimitePlanaltoException | TraducaoException e) {
-			// TODO adequar
-			e.printStackTrace();
-			return null;
-		}
+	public List<SondaVO> navega(@RequestBody InstrucoesVO instrucoes)
+			throws LimitePlanaltoException, TraducaoException {
+		return SondaVO.adapta(navegadorService.navega(instrucoes));
 	}
 }

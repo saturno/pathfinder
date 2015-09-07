@@ -57,8 +57,13 @@ public class SondaVO {
 	}
 
 	public Sonda adapta() throws TraducaoException {
-		Coordenada c = new Coordenada(Integer.valueOf(getX()),
-				Integer.valueOf(getY()));
+		Coordenada c;
+		try {
+			c = new Coordenada(Integer.valueOf(getX()), Integer.valueOf(getY()));
+		} catch (NumberFormatException e) {
+			throw new TraducaoException(
+					"As coordenadas devem ser números inteiros!");
+		}
 		PosicaoVetorial p = new PosicaoVetorial(c,
 				DirecoesEnum.traduz(getDirecao()));
 		return new Sonda(p, getRota());

@@ -2,6 +2,7 @@ package br.com.elo7.transfer;
 
 import br.com.elo7.Coordenada;
 import br.com.elo7.Planalto;
+import br.com.elo7.exception.TraducaoException;
 
 public class PlanaltoVO {
 
@@ -25,9 +26,15 @@ public class PlanaltoVO {
 		this.y = y;
 	}
 
-	public Planalto adapta() {
-		Coordenada c = new Coordenada(Integer.valueOf(getX()),
-				Integer.valueOf(getY()));
+	public Planalto adapta() throws TraducaoException {
+		Coordenada c;
+		try {
+			c = new Coordenada(Integer.valueOf(getX()), Integer.valueOf(getY()));
+		} catch (NumberFormatException e) {
+			throw new TraducaoException(
+					"As coordenadas devem ser números inteiros!");
+		}
+
 		return new Planalto(c);
 	}
 

@@ -2,7 +2,6 @@ package br.com.elo7;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
 import br.com.elo7.exception.LimitePlanaltoException;
 
@@ -18,7 +17,6 @@ public class Planalto {
 	}
 
 	public void addSonda(Sonda sonda) throws LimitePlanaltoException {
-		// TODO valida colisões com outras sondas?
 		if (!validaCoordenadaSonda(sonda.getPosicaoVetorial().getCoordenada())) {
 			throw new LimitePlanaltoException(
 					"Tentativa de colocar sonda fora da área do planalto!");
@@ -40,16 +38,4 @@ public class Planalto {
 				&& coordenada.getY() <= getCoordenadaSuperiorDireita().getY();
 	}
 
-	public String listaPosicaoVetorialSondas() {
-		String posicaoVetorialSondas = "";
-		Iterator<Sonda> iterator = getSondas().iterator();
-		while (iterator.hasNext()) {
-			posicaoVetorialSondas += iterator.next().getPosicaoVetorial()
-					.toString();
-			if (iterator.hasNext()) {
-				posicaoVetorialSondas += System.getProperty("line.separator");
-			}
-		}
-		return posicaoVetorialSondas;
-	}
 }

@@ -54,15 +54,7 @@ public class Sonda {
 				.getPosicaoVetorial().getCoordenada().getY()
 				+ this.getPosicaoVetorial().getDirecao().getAndaY());
 
-		if (getPlanalto() == null) {
-			throw new LimitePlanaltoException(
-					"A sonda não tem planalto pra andar!");
-		}
-
-		if (!getPlanalto().validaCoordenadaSonda(novaCoordenada)) {
-			throw new LimitePlanaltoException(
-					"Sonda tentou sair da área do planalto!");
-		}
+		validaCoordenadaSonda(novaCoordenada);
 
 		this.getPosicaoVetorial().setCoordenada(novaCoordenada);
 	}
@@ -87,6 +79,19 @@ public class Sonda {
 			default:
 				break;
 			}
+		}
+	}
+
+	private void validaCoordenadaSonda(Coordenada novaCoordenada)
+			throws LimitePlanaltoException {
+		if (getPlanalto() == null) {
+			throw new LimitePlanaltoException(
+					"A sonda não tem planalto pra andar!");
+		}
+
+		if (!getPlanalto().validaCoordenadaSonda(novaCoordenada)) {
+			throw new LimitePlanaltoException(
+					"Sonda tentou sair da área do planalto!");
 		}
 	}
 

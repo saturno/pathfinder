@@ -12,10 +12,6 @@ import br.com.elo7.transfer.SondaVO;
 @Component
 public class NavegadorBusiness {
 
-	public NavegadorBusiness() {
-		super();
-	}
-
 	/**
 	 * Optei por mudar a entrada e saída de dados. Uma String formatada não é a
 	 * melhor opção para um serviço Restful. Dessa forma, preferi o uso de vo's.

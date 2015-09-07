@@ -26,49 +26,32 @@ Cache-Control: no-cache
 
 Postman-Token: a66a8aec-6730-9cd8-9133-8110fcd231bd
 
+```json
 {
-
     "planalto": {
-
         "x" : "5",
-
         "y" : "5"
-        
     },
-
     "sondas": [
-
       {"x": "1", "y" : "2", "direcao" : "N", "rota" : "LMLMLMLMM"},
-
       {"x": "3", "y" : "3", "direcao" : "E", "rota" : "MMRMMRMRRM"}
-
     ]
-
 }
-
+```
 
 ### Retorno esperado
 
+```json
 [
-
   {
-
     "x": "1",
-
     "y": "3",
-
     "direcao": "N"
-
   },
-
   {
-
     "x": "5",
-
     "y": "1",
-
     "direcao": "E"
-
   }
-
 ]
+```

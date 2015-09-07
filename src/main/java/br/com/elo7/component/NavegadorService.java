@@ -2,17 +2,18 @@ package br.com.elo7.component;
 
 import org.springframework.stereotype.Component;
 
-import br.com.elo7.LimitePlanaltoException;
-import br.com.elo7.Navegador;
-import br.com.elo7.TraducaoException;
+import br.com.elo7.NavegadorBusiness;
+import br.com.elo7.exception.LimitePlanaltoException;
+import br.com.elo7.exception.TraducaoException;
+import br.com.elo7.transfer.InstrucoesVO;
 
 @Component
 public class NavegadorService implements INavegadorService {
 
 	@Override
-	public String navega(String instrucoes) throws LimitePlanaltoException,
-			TraducaoException {
-		Navegador navegador = new Navegador();
+	public String navega(InstrucoesVO instrucoes)
+			throws LimitePlanaltoException, TraducaoException {
+		NavegadorBusiness navegador = new NavegadorBusiness();
 		return navegador.navega(instrucoes);
 	}
 

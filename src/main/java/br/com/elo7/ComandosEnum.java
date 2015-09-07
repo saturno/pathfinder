@@ -1,5 +1,7 @@
 package br.com.elo7;
 
+import br.com.elo7.exception.TraducaoException;
+
 public enum ComandosEnum {
 	DIREITA("R"), ESQUERDA("L"), ANDA("M");
 

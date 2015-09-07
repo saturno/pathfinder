@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
+import br.com.elo7.exception.LimitePlanaltoException;
+
 public class Planalto {
 
 	private List<Sonda> sondas = new ArrayList<Sonda>();
@@ -17,7 +19,7 @@ public class Planalto {
 
 	public void addSonda(Sonda sonda) throws LimitePlanaltoException {
 		// TODO valida colisões com outras sondas?
-		if (!validaCoordenada(sonda.getPosicaoVetorial().getCoordenada())) {
+		if (!validaCoordenadaSonda(sonda.getPosicaoVetorial().getCoordenada())) {
 			throw new LimitePlanaltoException(
 					"Tentativa de colocar sonda fora da área do planalto!");
 		}
@@ -32,7 +34,7 @@ public class Planalto {
 		return coordenadaSuperiorDireita;
 	}
 
-	public boolean validaCoordenada(Coordenada coordenada) {
+	public boolean validaCoordenadaSonda(Coordenada coordenada) {
 		return coordenada.getX() >= 0 && coordenada.getY() >= 0
 				&& coordenada.getX() <= getCoordenadaSuperiorDireita().getX()
 				&& coordenada.getY() <= getCoordenadaSuperiorDireita().getY();

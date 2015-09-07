@@ -1,4 +1,4 @@
-package br.com.elo7;
+package br.com.elo7.exception;
 
 public class TraducaoException extends Exception {
 

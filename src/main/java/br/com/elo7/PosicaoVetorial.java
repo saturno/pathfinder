@@ -1,7 +1,5 @@
 package br.com.elo7;
 
-import java.util.StringTokenizer;
-
 public class PosicaoVetorial {
 
 	private Coordenada coordenada;
@@ -10,18 +8,6 @@ public class PosicaoVetorial {
 	public PosicaoVetorial(Coordenada coordenada, DirecoesEnum direcao) {
 		this.setCoordenada(coordenada);
 		this.direcao = direcao;
-	}
-
-	public PosicaoVetorial(String posicaoVetorial) throws TraducaoException {
-		StringTokenizer tokenPosicaoVetorial = new StringTokenizer(
-				posicaoVetorial, " ");
-		if (tokenPosicaoVetorial.countTokens() != 3) {
-			throw new TraducaoException(
-					"Número insuficiente de parâmetros para a Posição Vetorial");
-		}
-		this.setCoordenada(new Coordenada(tokenPosicaoVetorial.nextToken()
-				+ " " + tokenPosicaoVetorial.nextToken()));
-		this.direcao = DirecoesEnum.traduz(tokenPosicaoVetorial.nextToken());
 	}
 
 	public DirecoesEnum getDirecao() {

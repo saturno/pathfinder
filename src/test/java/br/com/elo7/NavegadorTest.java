@@ -1,36 +1,50 @@
 package br.com.elo7;
 
 import static org.junit.Assert.assertEquals;
-import static br.com.elo7.DirecoesEnum.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
+
+import br.com.elo7.exception.LimitePlanaltoException;
+import br.com.elo7.exception.TraducaoException;
+import br.com.elo7.transfer.InstrucoesVO;
+import br.com.elo7.transfer.PlanaltoVO;
+import br.com.elo7.transfer.SondaVO;
 
 public class NavegadorTest {
 
 	@Test
-	public void navegaUmaSonda() throws LimitePlanaltoException,
-			TraducaoException {
-		String instrucoes = "LMLMLMLMM";
-		Planalto planalto = new Planalto(new Coordenada(10, 10));
-		Sonda sonda = new Sonda(planalto, new PosicaoVetorial(new Coordenada(1,
-				1), NORTE));
-
-		Navegador navegador = new Navegador();
-		navegador.navega(sonda, instrucoes);
-		assertEquals(new PosicaoVetorial(new Coordenada(1, 2), NORTE), planalto
-				.getSondas().iterator().next().getPosicaoVetorial());
-
-	}
-
-	@Test
 	public void navegaTodasAsSondas() throws LimitePlanaltoException,
 			TraducaoException {
-		String instrucoes = "5 5" + System.getProperty("line.separator")
-				+ "1 2 N" + System.getProperty("line.separator") + "LMLMLMLMM"
-				+ System.getProperty("line.separator") + "3 3 E"
-				+ System.getProperty("line.separator") + "MMRMMRMRRM";
-		Navegador navegador = new Navegador();
-		String retorno = navegador.navega(instrucoes);
+		NavegadorBusiness navegador = new NavegadorBusiness();
+
+		InstrucoesVO instrucoesVO = new InstrucoesVO();
+
+		PlanaltoVO planaltoVO = new PlanaltoVO();
+		planaltoVO.setX("5");
+		planaltoVO.setY("5");
+
+		instrucoesVO.setPlanaltoVO(planaltoVO);
+
+		List<SondaVO> sondasVO = new ArrayList<SondaVO>();
+		SondaVO sondaVO_1 = new SondaVO();
+		sondaVO_1.setX("1");
+		sondaVO_1.setY("2");
+		sondaVO_1.setDirecao("N");
+		sondaVO_1.setRota("LMLMLMLMM");
+		sondasVO.add(sondaVO_1);
+		SondaVO sondaVO_2 = new SondaVO();
+		sondaVO_2.setX("3");
+		sondaVO_2.setY("3");
+		sondaVO_2.setDirecao("E");
+		sondaVO_2.setRota("MMRMMRMRRM");
+		sondasVO.add(sondaVO_2);
+
+		instrucoesVO.setSondasVO(sondasVO);
+
+		String retorno = navegador.navega(instrucoesVO);
 
 		String retornoEsperado = "1 3 N" + System.getProperty("line.separator")
 				+ "5 1 E";

@@ -1,5 +1,7 @@
 package br.com.elo7;
 
+import br.com.elo7.exception.TraducaoException;
+
 public enum DirecoesEnum {
 	NORTE("N", 0, 1), SUL("S", 0, -1), LESTE("E", 1, 0), OESTE("W", -1, 0);
 

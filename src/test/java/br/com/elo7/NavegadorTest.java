@@ -9,7 +9,7 @@ public class NavegadorTest {
 
 	@Test
 	public void navegaUmaSonda() throws LimitePlanaltoException,
-			ComandoException {
+			TraducaoException {
 		String instrucoes = "LMLMLMLMM";
 		Planalto planalto = new Planalto(new Coordenada(10, 10));
 		Sonda sonda = new Sonda(planalto, new PosicaoVetorial(new Coordenada(1,
@@ -24,7 +24,7 @@ public class NavegadorTest {
 
 	@Test
 	public void navegaTodasAsSondas() throws LimitePlanaltoException,
-			ComandoException, DirecaoException {
+			TraducaoException {
 		String instrucoes = "5 5" + System.getProperty("line.separator")
 				+ "1 2 N" + System.getProperty("line.separator") + "LMLMLMLMM"
 				+ System.getProperty("line.separator") + "3 3 E"

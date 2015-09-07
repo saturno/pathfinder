@@ -69,9 +69,9 @@ public enum DirecoesEnum {
 	}
 
 	public static DirecoesEnum traduz(String direcaoString)
-			throws DirecaoException {
+			throws TraducaoException {
 		if (direcaoString == null || direcaoString.isEmpty()) {
-			throw new DirecaoException("Não é permitida a direção vazia!");
+			throw new TraducaoException("Não é permitida a direção vazia!");
 		}
 
 		for (DirecoesEnum direcao : values()) {
@@ -80,7 +80,7 @@ public enum DirecoesEnum {
 			}
 		}
 
-		throw new DirecaoException("Direção " + direcaoString + " Inválida!");
+		throw new TraducaoException("Direção " + direcaoString + " Inválida!");
 	}
 
 }

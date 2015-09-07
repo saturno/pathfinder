@@ -1,9 +1,5 @@
 package br.com.elo7;
 
-import static br.com.elo7.ComandosEnum.ANDA;
-import static br.com.elo7.ComandosEnum.DIREITA;
-import static br.com.elo7.ComandosEnum.ESQUERDA;
-
 import java.util.StringTokenizer;
 
 public class Navegador {
@@ -12,61 +8,60 @@ public class Navegador {
 		super();
 	}
 
+	/**
+	 * Estou assumindo que qualquer erro encontrado nas instruções para o
+	 * processamento
+	 */
 	public void navega(Sonda sonda, String instrucoesSonda)
-			throws LimitePlanaltoException, ComandoException {
+			throws LimitePlanaltoException, TraducaoException {
 		for (int i = 0; i < instrucoesSonda.length(); i++) {
-			char comando = instrucoesSonda.charAt(i);
-			if (comando == ESQUERDA.getCodigo()) {
+			String comando = Character.toString(instrucoesSonda.charAt(i));
+			switch (ComandosEnum.traduz(comando)) {
+			case ESQUERDA:
 				sonda.viraEsquerda();
-			} else if (comando == DIREITA.getCodigo()) {
+				break;
+			case DIREITA:
 				sonda.viraDireita();
-			} else if (comando == ANDA.getCodigo()) {
+				break;
+			case ANDA:
 				sonda.anda();
-			} else {
-				throw new ComandoException("Comando " + comando + " inválido! ");
+				break;
+			default:
+				break;
 			}
 		}
 	}
 
+	/**
+	 * Estou assumindo que qualquer erro encontrado nas instruções para o
+	 * processamento
+	 * 
+	 * @throws CoordenadaException
+	 */
 	public String navega(String instrucoes) throws LimitePlanaltoException,
-			ComandoException, DirecaoException {
-		// Parte feia de parsing...
+			TraducaoException {
 		StringTokenizer linhas = new StringTokenizer(instrucoes,
 				System.getProperty("line.separator"));
 
-		Planalto planalto = extraiPlanalto(linhas.nextToken());
+		validaInstrucoes(linhas);
+		Planalto planalto = new Planalto(new Coordenada(linhas.nextToken()));
+		validaInstrucoes(linhas);
 
 		while (linhas.hasMoreTokens()) {
-			Sonda sonda = extraiSonda(linhas.nextToken(), planalto);
+			Sonda sonda = new Sonda(planalto, new PosicaoVetorial(
+					linhas.nextToken()));
+			validaInstrucoes(linhas);
 			navega(sonda, linhas.nextToken());
 		}
 
 		return planalto.listaPosicaoVetorialSondas();
 	}
 
-	private Sonda extraiSonda(String linhaSonda, Planalto planalto)
-			throws LimitePlanaltoException, DirecaoException {
-		StringTokenizer coordenadasSonda = new StringTokenizer(linhaSonda, " ");
-		Integer coordenadaXSonda = Integer
-				.valueOf(coordenadasSonda.nextToken());
-		Integer coordenadaYSonda = Integer
-				.valueOf(coordenadasSonda.nextToken());
-		String direcao = coordenadasSonda.nextToken();
-		return new Sonda(planalto, new PosicaoVetorial(new Coordenada(
-				coordenadaXSonda, coordenadaYSonda),
-				DirecoesEnum.traduz(direcao)));
-
-	}
-
-	private Planalto extraiPlanalto(String linhaPlanalto) {
-		StringTokenizer coordenadasPlanalto = new StringTokenizer(
-				linhaPlanalto, " ");
-		Integer coordenadaXPlanalto = Integer.valueOf(coordenadasPlanalto
-				.nextToken());
-		Integer coordenadaYPlanalto = Integer.valueOf(coordenadasPlanalto
-				.nextToken());
-		return new Planalto(new Coordenada(coordenadaXPlanalto,
-				coordenadaYPlanalto));
+	private void validaInstrucoes(StringTokenizer linhas)
+			throws TraducaoException {
+		if (!linhas.hasMoreTokens()) {
+			throw new TraducaoException("Instruções incompletas!");
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.elo7;
 
+import java.util.StringTokenizer;
+
 public class Coordenada {
 
 	private int x;
@@ -9,6 +11,22 @@ public class Coordenada {
 		super();
 		this.setX(x);
 		this.setY(y);
+	}
+
+	public Coordenada(String coordenada) throws TraducaoException {
+		super();
+		StringTokenizer tokenCoordenada = new StringTokenizer(coordenada, " ");
+		if (tokenCoordenada.countTokens() != 2) {
+			throw new TraducaoException(
+					"Número insuficiente de parâmetros para a Coordenada");
+		}
+		try {
+			this.setX(Integer.valueOf(tokenCoordenada.nextToken()));
+			this.setY(Integer.valueOf(tokenCoordenada.nextToken()));
+		} catch (NumberFormatException e) {
+			throw new TraducaoException(
+					"Coordenada deve ser um número inteiro!");
+		}
 	}
 
 	public int getX() {

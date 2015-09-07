@@ -4,24 +4,24 @@ import java.util.List;
 
 public class InstrucoesVO {
 
-	private PlanaltoVO planaltoVO;
+	private PlanaltoVO planalto;
 
-	private List<SondaVO> sondasVO;
+	private List<SondaVO> sondas;
 
-	public PlanaltoVO getPlanaltoVO() {
-		return planaltoVO;
+	public PlanaltoVO getPlanalto() {
+		return planalto;
 	}
 
-	public void setPlanaltoVO(PlanaltoVO planaltoVO) {
-		this.planaltoVO = planaltoVO;
+	public void setPlanalto(PlanaltoVO planalto) {
+		this.planalto = planalto;
 	}
 
-	public List<SondaVO> getSondasVO() {
-		return sondasVO;
+	public List<SondaVO> getSondas() {
+		return sondas;
 	}
 
-	public void setSondasVO(List<SondaVO> sondasVO) {
-		this.sondasVO = sondasVO;
+	public void setSondas(List<SondaVO> sondas) {
+		this.sondas = sondas;
 	}
 
 }

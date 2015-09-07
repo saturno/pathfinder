@@ -26,7 +26,7 @@ public class NavegadorTest {
 		planaltoVO.setX("5");
 		planaltoVO.setY("5");
 
-		instrucoesVO.setPlanaltoVO(planaltoVO);
+		instrucoesVO.setPlanalto(planaltoVO);
 
 		List<SondaVO> sondasVO = new ArrayList<SondaVO>();
 		SondaVO sondaVO_1 = new SondaVO();
@@ -42,13 +42,14 @@ public class NavegadorTest {
 		sondaVO_2.setRota("MMRMMRMRRM");
 		sondasVO.add(sondaVO_2);
 
-		instrucoesVO.setSondasVO(sondasVO);
+		instrucoesVO.setSondas(sondasVO);
 
-		String retorno = navegador.navega(instrucoesVO);
+		List<Sonda> retornoSondas = navegador.navega(instrucoesVO);
 
-		String retornoEsperado = "1 3 N" + System.getProperty("line.separator")
-				+ "5 1 E";
-		assertEquals(retornoEsperado, retorno);
+		assertEquals(new PosicaoVetorial(new Coordenada(1, 3),
+				DirecoesEnum.NORTE), retornoSondas.get(0).getPosicaoVetorial());
+		assertEquals(new PosicaoVetorial(new Coordenada(5, 1),
+				DirecoesEnum.LESTE), retornoSondas.get(1).getPosicaoVetorial());
 
 	}
 

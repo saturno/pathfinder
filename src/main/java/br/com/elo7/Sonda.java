@@ -69,6 +69,9 @@ public class Sonda {
 
 	public void navegaPelaRota() throws LimitePlanaltoException,
 			TraducaoException {
+		if (getRota() == null) {
+			return;
+		}
 		for (int i = 0; i < getRota().length(); i++) {
 			String comando = Character.toString(getRota().charAt(i));
 			switch (ComandosEnum.traduz(comando)) {

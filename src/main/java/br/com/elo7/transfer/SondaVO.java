@@ -1,10 +1,16 @@
 package br.com.elo7.transfer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.elo7.Coordenada;
 import br.com.elo7.DirecoesEnum;
 import br.com.elo7.PosicaoVetorial;
 import br.com.elo7.Sonda;
 import br.com.elo7.exception.TraducaoException;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SondaVO {
 
@@ -32,10 +38,12 @@ public class SondaVO {
 		this.y = y;
 	}
 
+	@JsonIgnore
 	public String getRota() {
 		return rota;
 	}
 
+	@JsonProperty
 	public void setRota(String rota) {
 		this.rota = rota;
 	}
@@ -54,6 +62,24 @@ public class SondaVO {
 		PosicaoVetorial p = new PosicaoVetorial(c,
 				DirecoesEnum.traduz(getDirecao()));
 		return new Sonda(p, getRota());
+	}
+
+	public static SondaVO adapta(Sonda sonda) {
+		SondaVO sondaVO = new SondaVO();
+		sondaVO.setDirecao(sonda.getPosicaoVetorial().getDirecao().getToken());
+		sondaVO.setX(String.valueOf(sonda.getPosicaoVetorial().getCoordenada()
+				.getX()));
+		sondaVO.setY(String.valueOf(sonda.getPosicaoVetorial().getCoordenada()
+				.getY()));
+		return sondaVO;
+	}
+
+	public static List<SondaVO> adapta(List<Sonda> sondas) {
+		List<SondaVO> sondasVO = new ArrayList<SondaVO>();
+		for (Sonda sonda : sondas) {
+			sondasVO.add(adapta(sonda));
+		}
+		return sondasVO;
 	}
 
 }

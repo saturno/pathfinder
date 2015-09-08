@@ -3,59 +3,40 @@ package br.com.elo7;
 import br.com.elo7.exception.TraducaoException;
 
 public enum DirecoesEnum {
-	NORTE("N", 0, 1), SUL("S", 0, -1), LESTE("E", 1, 0), OESTE("W", -1, 0);
+	NORTE("N", 0, 1, "E", "W"), SUL("S", 0, -1, "W", "E"), LESTE("E", 1, 0,
+			"S", "N"), OESTE("W", -1, 0, "N", "S");
 
+	private final String token;
 	private final int andaY;
 	private final int andaX;
-	private final String token;
+	private final String tokenDireita;
+	private final String tokenEsquerda;
 
-	private DirecoesEnum(String token, int andaX, int andaY) {
+	private DirecoesEnum(String token, int andaX, int andaY,
+			String tokenDireita, String tokenEsquerda) {
 		this.token = token;
 		this.andaX = andaX;
 		this.andaY = andaY;
+		this.tokenDireita = tokenDireita;
+		this.tokenEsquerda = tokenEsquerda;
 	}
 
 	public DirecoesEnum direita() {
-		DirecoesEnum direita = null;
-		switch (this) {
-		case NORTE:
-			direita = LESTE;
-			break;
-		case SUL:
-			direita = OESTE;
-			break;
-		case LESTE:
-			direita = SUL;
-			break;
-		case OESTE:
-			direita = NORTE;
-			break;
-		default:
-			break;
+		try {
+			return traduz(this.tokenDireita);
+		} catch (TraducaoException e) {
+			e.printStackTrace();
 		}
-		return direita;
+		return null;
 	}
 
 	public DirecoesEnum esquerda() {
-		DirecoesEnum esquerda = null;
-		switch (this) {
-		case NORTE:
-			esquerda = OESTE;
-			break;
-		case SUL:
-			esquerda = LESTE;
-			break;
-		case LESTE:
-			esquerda = NORTE;
-			break;
-		case OESTE:
-			esquerda = SUL;
-			break;
-		default:
-			esquerda = null;
-			break;
+		try {
+			return traduz(this.tokenEsquerda);
+		} catch (TraducaoException e) {
+			e.printStackTrace();
 		}
-		return esquerda;
+		return null;
 	}
 
 	public String getToken() {

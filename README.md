@@ -16,15 +16,13 @@ Implementei o método POST, por achar mais adequado.
 
 ### Chamada do serviço
 
+```
 POST /pathfinder-0.0.1-SNAPSHOT/navegacao HTTP/1.1
-
 Host: localhost:8080
-
 Content-Type: application/json
-
 Cache-Control: no-cache
-
 Postman-Token: a66a8aec-6730-9cd8-9133-8110fcd231bd
+```
 
 ```json
 {
